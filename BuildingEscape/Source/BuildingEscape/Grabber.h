@@ -24,4 +24,6 @@ public:
 private:
     FVector playerViewpointLoc;
     FRotator playerViewpointRot;
+    
+    float reach{100.f};
 };

@@ -38,5 +38,9 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
     FString pVR = playerViewpointRot.ToString();
     
     UE_LOG(LogTemp, Warning, TEXT("loc: %s, rot: %s"), *pVL, *pVR)
+    
+    FVector lineTraceEnd = playerViewpointLoc + playerViewpointRot.Vector() * reach;
+    
+    DrawDebugLine(GetWorld(), playerViewpointLoc, lineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 }
 
