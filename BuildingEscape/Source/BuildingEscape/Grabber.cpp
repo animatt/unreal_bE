@@ -34,13 +34,23 @@ void UGrabber::TickComponent( float DeltaTime, ELevelTick TickType, FActorCompon
 
 	GetWorld()->GetFirstPlayerController()->GetPlayerViewPoint(OUT playerViewpointLoc, OUT playerViewpointRot);
     
-    FString pVL = playerViewpointLoc.ToString();
-    FString pVR = playerViewpointRot.ToString();
     
-    UE_LOG(LogTemp, Warning, TEXT("loc: %s, rot: %s"), *pVL, *pVR)
+    UE_LOG(LogTemp, Warning, TEXT("loc: %s, rot: %s"), *playerViewpointLoc.ToString(), *playerViewpointRot.ToString())
     
     FVector lineTraceEnd = playerViewpointLoc + playerViewpointRot.Vector() * reach;
-    
+    //
     DrawDebugLine(GetWorld(), playerViewpointLoc, lineTraceEnd, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
+    
+    FHitResult outHit;
+    FCollisionQueryParams collisionParams(FName(TEXT("")), false, GetOwner());
+    //
+    GetWorld()->LineTraceSingleByObjectType(OUT outHit, playerViewpointLoc, lineTraceEnd, ECollisionChannel::ECC_PhysicsBody, collisionParams);
+    
+    AActor* actorThatWasHit = outHit.GetActor();
+    //
+    if(actorThatWasHit){
+        UE_LOG(LogTemp, Warning, TEXT("Hit %s"), *actorThatWasHit->GetName())
+    }
+    
 }
 
