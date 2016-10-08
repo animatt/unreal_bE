@@ -5,4 +5,5 @@
 */Saved
 BuildingEscape/Content/StarterContent/
 *.DS_Store
-**/xcuserdata
+**/xcuserdata/*
+/BuildingEscape\ copy.zip
